@@ -41,7 +41,7 @@
     </div>
     <div class="form-group">
       <div class='form-text-wrap'>
-        <label class="form-text">出身都道府県</label>
+        <label class="form-text">居住している都道府県</label>
         <span class="indispensable">必須</span>
       </div>
       <%= f.collection_select(:prefecture_id, Prefecture.all, :id, :name, {}, {class:"select-box", id:"item-prefecture"}) %>
