@@ -1,0 +1,6 @@
+ja:
+  activerecord:
+    attributes:
+      user:
+        nickname: ニックネーム
+        prefecture_id: 居住している都道府県
