@@ -1,0 +1,13 @@
+<div class="contents row">
+  <div class="container">
+    <h3>投稿する</h3>
+    <h4>※動画を添付するとよりわかりやすい質問になる</h4>
+    <%= form_with(model: @question, local: true) do |f| %>
+      <p>質問内容（必須）</P>
+      <%= f.text_area :text, placeholder: "具体的に記載してください", rows: "15" %>
+      <p>添付動画（任意）</p>
+      <%= f.file_field :video %>
+      <%= f.submit "送信" %>
+    <% end %>
+  </div>
+</div>
