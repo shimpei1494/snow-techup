@@ -3,6 +3,7 @@
     <h3>投稿する</h3>
     <h4>※動画を添付するとよりわかりやすい質問になる</h4>
     <%= form_with(model: @question, local: true) do |f| %>
+      <%= render 'shared/error_messages', model: f.object %>
       <p>質問内容（必須）</P>
       <%= f.text_area :text, placeholder: "具体的に記載してください", rows: "15" %>
       <p>添付動画（任意）</p>

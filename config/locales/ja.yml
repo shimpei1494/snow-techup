@@ -4,3 +4,5 @@ ja:
       user:
         nickname: ニックネーム
         prefecture_id: 居住している都道府県
+      question:
+        text: テキスト
