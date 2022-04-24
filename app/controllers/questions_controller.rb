@@ -1,7 +1,7 @@
 class QuestionsController < ApplicationController
   before_action :authenticate_user!, except: [:index]
   def index
-    @questions = Question.all
+    @questions = Question.order(created_at: "DESC").includes(:user)
   end
 
   def new
