@@ -3,5 +3,5 @@ class Question < ApplicationRecord
   has_one_attached :video
 
   validates :text, presence: true
-  validates :video, attached_file_size: { maximum: 15.megabytes }, attached_file_type: { pattern: /^image \// }
+  validates :video, blob: { content_type: :video, size_range: 1..(15.megabytes) }
 end
