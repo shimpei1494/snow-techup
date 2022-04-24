@@ -1,1 +1,7 @@
-よろしく
+<div class="contents row">
+  <% @questions.each do |question| %>
+    <p>投稿者：<%= question.user.nickname %></p>
+    <p><%= question.text %></p>
+    <video src="<%= rails_blob_path(question.video) %>" width="960" height="720" controls></video>
+  <% end %>
+</div>

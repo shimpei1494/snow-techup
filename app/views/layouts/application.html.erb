@@ -16,7 +16,7 @@
         <h1 class="grid-6"><a href="/">Snow-Techup</a></h1>
         <div class='nav'>
           <ul class='lists-left'>
-            <li><a class="post" href="#">投稿する</a></li>
+            <li><%= link_to '投稿する', new_question_path, class: "post" %></li>
           </ul>
           <ul class='lists-right'>
             <% if user_signed_in? %>
