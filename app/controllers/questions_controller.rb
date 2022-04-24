@@ -1,5 +1,7 @@
 class QuestionsController < ApplicationController
-  before_action :authenticate_user!, except: [:index]
+  before_action :authenticate_user!, except: [:index, :show]
+  before_action :question_id, only: [:show]
+
   def index
     @questions = Question.order(created_at: "DESC").includes(:user)
   end
@@ -17,9 +19,16 @@ class QuestionsController < ApplicationController
     end
   end
 
+  def show
+  end
+
   private
 
   def question_params
     params.require(:question).permit(:text, :video).merge(user_id: current_user.id)
+  end
+
+  def question_id
+    @question = Question.find(params[:id])
   end
 end
