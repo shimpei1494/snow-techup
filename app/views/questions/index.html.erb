@@ -2,6 +2,7 @@
   <% @questions.each do |question| %>
     <p>投稿者：<%= question.user.nickname %></p>
     <p><%= question.text %></p>
+    <p><%=link_to '上の詳細', question_path(question.id) %></p>
     <video src="<%= rails_blob_path(question.video) %>" width="960" height="720" controls></video>
   <% end %>
 </div>
