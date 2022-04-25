@@ -1,6 +1,6 @@
 class QuestionsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :question_id, only: [:show]
+  before_action :question_id, only: [:show, :destroy]
 
   def index
     @questions = Question.order(created_at: "DESC").includes(:user)
@@ -20,6 +20,15 @@ class QuestionsController < ApplicationController
   end
 
   def show
+  end
+
+  def destroy
+    if current_user.id == @question.user.id
+      @question.destroy
+      redirect_to root_path
+    else
+      redirect_to root_path
+    end
   end
 
   private
