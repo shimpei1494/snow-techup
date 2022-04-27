@@ -29,8 +29,8 @@
         </p>
         <% if user_signed_in? %>
           <% if comment.user.id == current_user.id %>
-            <p><%= link_to "コメントの編集", edit_question_comment_path(comment.id), method: :get, class: "item-red-btn" %></p>
-            <p><%= link_to "コメントの削除", question_comment_path(comment.id), method: :delete, class:"item-destroy" %></p>
+            <p><%= link_to "コメントの編集", edit_question_comment_path(@question.id, comment.id), method: :get, class: "item-red-btn" %></p>
+            <p><%= link_to "コメントの削除", question_comment_path(@question.id, comment.id), method: :delete, class:"item-destroy" %></p>
           <% end %>
         <% end %>
       <% end %>
