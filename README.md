@@ -27,7 +27,9 @@
 ## comments TABLE
 |Column|Type|Options|
 |-|-|-|
-|text|text|-|
+|text|text|null :false|
+|user_id|references|null: false, foreign_key: true|
+|question_id|references|null: false, foreign_key: true|
 
 ### Association
   - belongs_to :user
