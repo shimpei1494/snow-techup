@@ -13,7 +13,7 @@
   <div class="container">
     <% if user_signed_in? %>
       <%= form_with(model: [@question, @comment], local: true) do |form| %>
-        <%= form.text_area :text, placeholder: "コメントする", rows: "2" %>
+        <%= form.text_area :text, placeholder: "コメントする\n動画urlを記述してわかりやすく", rows: "2" %>
         <%= form.submit "SEND" %>
       <% end %>
     <% else %>
@@ -25,7 +25,7 @@
       <% @comments.each do |comment| %>
         <p>
           <strong><%= link_to comment.user.nickname, "/users/#{comment.user_id}" %>：</strong>
-          <%= Rinku.auto_link(comment.text, :all, 'target="_blank"').html_safe %>
+          <%= Rinku.auto_link(simple_format(comment.text), :all, 'target="_blank"').html_safe %>
           <%# <%= comment.text %>
         </p>
       <% end %>
