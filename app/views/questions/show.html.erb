@@ -1,7 +1,11 @@
 <div class="contents row">
   <p>投稿者：<%= @question.user.nickname %></p>
   <p><%= @question.text %></p>
-  <video src="<%= rails_blob_path(@question.video) %>" width="960" height="720" controls></video>
+  <% if @question.video.present? %>
+    <video src="<%= rails_blob_path(@question.video) %>" width="960" height="720" controls></video>
+  <% else %>
+    <p>動画は添付されていません</p>
+  <% end %>
   <%# 投稿者のみログイン時編集、削除できる %>
   <% if user_signed_in? %>
     <% if @question.user.id == current_user.id %>
