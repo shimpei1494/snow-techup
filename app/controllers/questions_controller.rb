@@ -1,9 +1,13 @@
 class QuestionsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show]
+  before_action :authenticate_user!, except: [:index, :show, :search]
   before_action :question_id, only: [:show, :edit, :update, :destroy]
 
   def index
     @questions = Question.order(created_at: "DESC").includes(:user)
+  end
+
+  def search
+    @questions = Question.search(params[:keyword])
   end
 
   def new
