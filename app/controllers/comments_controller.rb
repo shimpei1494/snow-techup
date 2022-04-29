@@ -24,9 +24,9 @@ class CommentsController < ApplicationController
   def destroy
     if current_user.id == @comment.user.id
       @comment.destroy
-      redirect_to root_path
+      redirect_to question_path(params[:question_id])
     else
-      redirect_to root_path
+      redirect_to question_path(params[:question_id])
     end
   end
 
