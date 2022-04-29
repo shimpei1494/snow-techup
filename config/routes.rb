@@ -3,5 +3,8 @@ Rails.application.routes.draw do
   root to: 'questions#index'
   resources :questions do
     resources :comments
+    collection do
+      get 'search'
+    end
   end
 end
