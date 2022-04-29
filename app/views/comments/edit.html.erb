@@ -1,0 +1,4 @@
+<%= form_with(model: [@question, @comment], local: true) do |form| %>
+  <%= form.text_area :text, placeholder: "コメントする\n動画urlを記述してわかりやすく", rows: "2" %>
+  <%= form.submit "SEND" %>
+<% end %>
