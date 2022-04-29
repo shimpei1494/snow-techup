@@ -14,6 +14,11 @@ class CommentsController < ApplicationController
   end
 
   def update
+    if comment = Comment.update(comment_params)
+      redirect_to question_path(params[:question_id])
+    else
+      render :edit
+    end
   end
 
   def destroy
