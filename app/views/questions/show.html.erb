@@ -20,7 +20,7 @@
     <p class="text-break"><%= simple_format(@question.text) %></p>
   </div>
   <% if @question.video.present? %>
-    <video src="<%= rails_blob_path(@question.video) %>" width="960" height="720" controls></video>
+    <video src="<%= rails_blob_path(@question.video) %>" controls></video>
   <% else %>
     <p>※この質問に動画は添付されていません</p>
   <% end %>
