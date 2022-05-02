@@ -1,42 +1,67 @@
-<div class="contents row">
-  <p>投稿者：<%= @question.user.nickname %></p>
-  <p><%= @question.text %></p>
-  <% if @question.video.present? %>
-    <video src="<%= rails_blob_path(@question.video) %>" width="960" height="720" controls></video>
-  <% else %>
-    <p>動画は添付されていません</p>
-  <% end %>
+<div class="ps-3 pt-1 pb-2">
+  <h4>＜質問内容＞</h4>
+  <p>
+    <b>質問者</b>：<%= @question.user.nickname %>
+    / <b>投稿日</b>：###
+  </p>
+  
   <%# 投稿者のみログイン時編集、削除できる %>
   <% if user_signed_in? %>
     <% if @question.user.id == current_user.id %>
-      <p><%= link_to "質問の編集", edit_question_path(@question.id), method: :get, class: "item-red-btn" %></p>
-      <p><%= link_to "質問の削除", question_path(@question.id), method: :delete, class:"item-destroy" %></p>
+      <div class="d-flex mb-2">
+        <button type="button" class="btn btn-outline-secondary"><%= link_to "質問の編集", edit_question_path(@question.id), method: :get, class: "link-dark" %></button>
+        <button type="button" class="btn btn-outline-danger ms-2"><%= link_to "質問の削除", question_path(@question.id), method: :delete, class:"link-dark" %></button>
+      </div>
     <% end %>
   <% end %>
   <%# コメント機能 %>
-  <div class="container">
-    <% if user_signed_in? %>
-      <%= form_with(model: [@question, @comment], local: true) do |form| %>
-        <%= form.text_area :text, placeholder: "コメントする\n動画urlを記述してわかりやすく", rows: "2" %>
-        <%= form.submit "SEND" %>
-      <% end %>
-    <% else %>
-      <strong><p>※※※ コメントの投稿には新規登録/ログインが必要です ※※※</p></strong>
-    <% end %>
+
+  <div class="border rounded mb-2 col-5">
+    <p class="text-break"><%= simple_format(@question.text) %></p>
   </div>
-  <div class="comments">
-      <h4>＜コメント一覧＞</h4>
-      <% @comments.each do |comment| %>
-        <p>
-          <strong><%= link_to comment.user.nickname, "/users/#{comment.user_id}" %>：</strong>
-          <%= Rinku.auto_link(simple_format(comment.text), :all, 'target="_blank"').html_safe %>
-        </p>
-        <% if user_signed_in? %>
-          <% if comment.user.id == current_user.id %>
-            <p><%= link_to "コメントの編集", edit_question_comment_path(@question.id, comment.id), method: :get, class: "item-red-btn" %></p>
-            <p><%= link_to "コメントの削除", question_comment_path(@question.id, comment.id), method: :delete, class:"item-destroy" %></p>
-          <% end %>
+  <% if @question.video.present? %>
+    <video src="<%= rails_blob_path(@question.video) %>" width="960" height="720" controls></video>
+  <% else %>
+    <p>※この質問に動画は添付されていません</p>
+  <% end %>
+</div>
+  
+<div class="container-fluid">
+    <h4>＜コメント一覧＞</h4>
+    <div class="container-fluid">
+      <% if user_signed_in? %>
+        <%= form_with(model: [@question, @comment], local: true, class: "form-group d-flex") do |form| %>
+          <%= form.text_area :text, placeholder: "コメントする\n動画urlを記述してわかりやすく", rows: "3", class: "form-group col-5" %>
+          <%= form.submit "送信", class: "ms-2 btn btn-info" %>
         <% end %>
+      <% else %>
+        <strong><p>※※※ コメントの投稿には新規登録/ログインが必要です ※※※</p></strong>
       <% end %>
     </div>
+    <% if @comments.blank? %>
+      <p class="pt-4">投稿されたコメントはありません</p>  
+    <% end%>
+    <% @comments.each do |comment| %>
+      <div class="d-flex pt-4 pb-4">
+        <div>
+          投稿日時
+        </div>
+        <div class="ms-2">
+          <strong><%= link_to comment.user.nickname, "/users/#{comment.user_id}" %></strong>
+        </div>
+        <div class="ms-2">
+        <% if user_signed_in? %>
+          <% if comment.user.id == current_user.id %>
+            <button type="button" class="btn btn-outline-secondary"><%= link_to "コメント編集", edit_question_comment_path(@question.id, comment.id), method: :get, class: "link-dark" %></button>
+            <button type="button" class="btn btn-outline-danger ms-2"><%= link_to "コメント削除", question_comment_path(@question.id, comment.id), method: :delete, class:"link-dark" %></button>
+          <% end %>
+        <% end %>
+        </div>
+      </div>
+      <div class="border rounded col-5 ms-2">
+        <%= Rinku.auto_link(simple_format(comment.text), :all, 'target="_blank"').html_safe %>
+      </div>
+      <div class="mt-2 border-bottom">
+      </div>
+    <% end %>
 </div>
