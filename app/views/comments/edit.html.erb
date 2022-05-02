@@ -1,4 +1,9 @@
-<%= form_with(model: [@question, @comment], local: true) do |form| %>
-  <%= form.text_area :text, placeholder: "コメントする\n動画urlを記述してわかりやすく", rows: "2" %>
-  <%= form.submit "SEND" %>
-<% end %>
+<div class="ms-2 mt-3">
+  <h3>＜コメントの編集＞</h3>
+
+  <%= form_with(model: [@question, @comment], local: true, class: "form-group d-flex") do |form| %>
+    <%= form.text_area :text, placeholder: "コメントする\n動画urlを記述してわかりやすく", rows: "3", class: "form-group col-5" %>
+    <%= form.submit "送信", class: "ms-2 btn btn-info" %>
+  <% end %>
+
+</div>
