@@ -12,7 +12,7 @@
       <%# <div class="mx-auto" style="width: 600px"> %>
         <p class="">
           <b>質問者</b>：<%= question.user.nickname %>
-          / <b>投稿日</b>：###
+          / <b>投稿日時</b>：<%= l question.created_at %>
         </p>
         <div class="border rounded mb-2 col-5">
           <p class="text-break"><%= simple_format(question.text) %></p>

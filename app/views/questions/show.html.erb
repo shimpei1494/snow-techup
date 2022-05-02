@@ -2,7 +2,7 @@
   <h4>＜質問内容＞</h4>
   <p>
     <b>質問者</b>：<%= @question.user.nickname %>
-    / <b>投稿日</b>：###
+    / <b>投稿日時</b>：<%= l @question.created_at %>
   </p>
   
   <%# 投稿者のみログイン時編集、削除できる %>
@@ -44,7 +44,7 @@
     <% @comments.each do |comment| %>
       <div class="d-flex pt-4 pb-4">
         <div>
-          投稿日時
+          投稿日時：<%= l comment.created_at %>
         </div>
         <div class="ms-2">
           <strong><%= link_to comment.user.nickname, "/users/#{comment.user_id}" %></strong>
