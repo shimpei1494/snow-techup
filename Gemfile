@@ -63,5 +63,4 @@ gem 'rails-i18n'
 gem 'activestorage-validator'
 gem 'rinku'
 gem 'bootstrap', '~> 5.1', '>= 5.1.3'
-gem 'jquery-rails'
 gem "aws-sdk-s3", require: false

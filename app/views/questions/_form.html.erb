@@ -7,7 +7,9 @@
       <%= f.text_area :text, placeholder: "具体的に記載してください", rows: "8", class:"col-5" %>
       <p class="fw-bold text-decoration-underline">添付動画（任意）</p>
       <%= f.file_field :video %>
-      <%= f.submit "送信" %>
+      <div class="mt-2">
+        <%= f.submit "送信" %>
+      </div>
     <% end %>
   </div>
 </div>
