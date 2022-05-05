@@ -1,6 +1,6 @@
 class QuestionsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show, :search]
-  before_action :question_id, only: [:show, :edit, :update, :destroy]
+  before_action :question_id, only: [:show, :edit, :update, :destroy, :best_answer_reset]
 
   def index
     @questions = Question.order(created_at: "DESC").includes(:user)
@@ -49,6 +49,14 @@ class QuestionsController < ApplicationController
     else
       redirect_to root_path
     end
+  end
+
+  def best_answer_reset
+    @question.update_attribute(:best_answer_question_id, nil)
+    @question.comments.each do |comment|
+      comment.update_attribute(:best_answer_id, nil)
+    end
+    redirect_to question_path(@question.id)
   end
 
   private
