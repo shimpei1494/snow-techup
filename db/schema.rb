@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(version: 2022_04_25_214833) do
     t.text "text", null: false
     t.bigint "user_id", null: false
     t.bigint "question_id", null: false
+    t.integer "best_answer_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["question_id"], name: "index_comments_on_question_id"
@@ -46,6 +47,7 @@ ActiveRecord::Schema.define(version: 2022_04_25_214833) do
   create_table "questions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.text "text", null: false
     t.bigint "user_id", null: false
+    t.integer "best_answer_question_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_questions_on_user_id"
