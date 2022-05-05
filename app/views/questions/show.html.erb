@@ -29,7 +29,7 @@
   
 <div class="container-fluid">
     <h4>＜コメント一覧＞</h4>
-    <div class="container-fluid">
+    <div class="container-fluid mb-3">
       <% if user_signed_in? %>
         <%= form_with(model: [@question, @comment], local: true, class: "form-group d-flex") do |form| %>
           <%= form.text_area :text, placeholder: "コメントする\n動画urlを記述してわかりやすく", rows: "3", class: "form-group col-5" %>
@@ -43,31 +43,38 @@
       <p class="pt-4">投稿されたコメントはありません</p>  
     <% end%>
     <% @comments.each do |comment| %>
-      <div class="d-flex pt-4 pb-4">
+      <div class="<%= "border border-danger border-5" if comment.best_answer_id != nil %>">
         <div>
-          投稿日時：<%= l comment.created_at %>
-        </div>
-        <div class="ms-2">
-          <strong><%= link_to comment.user.nickname, "/users/#{comment.user_id}" %></strong>
-        </div>
-        <div class="ms-2">
-        <% if user_signed_in? %>
-          <% if comment.user.id == current_user.id %>
-            <button type="button" class="btn btn-outline-secondary"><%= link_to "コメント編集", edit_question_comment_path(@question.id, comment.id), method: :get, class: "link-dark" %></button>
-            <button type="button" class="btn btn-outline-danger ms-2"><%= link_to "コメント削除", question_comment_path(@question.id, comment.id), method: :delete, class:"link-dark" %></button>
+          <% if comment.best_answer_id != nil %>
+            <strong class="text-danger">ベストアンサー！</strong>
           <% end %>
-          <% if @question.best_answer_question_id == nil %>
-            <% if @question.user.id == current_user.id %>
-              <button type="button" class="btn btn-outline-info ms-2"><%= link_to "ベストアンサー", best_answer_question_comment_path(@question.id, comment.id), method: :post, class: "link-dark" %></button>
+        </div>
+        <div class="d-flex pt-2 pb-4">
+          <div>
+            投稿日時：<%= l comment.created_at %>
+          </div>
+          <div class="ms-2">
+            <strong><%= link_to comment.user.nickname, "/users/#{comment.user_id}" %></strong>
+          </div>
+          <div class="ms-2">
+          <% if user_signed_in? %>
+            <% if comment.user.id == current_user.id %>
+              <button type="button" class="btn btn-outline-secondary"><%= link_to "コメント編集", edit_question_comment_path(@question.id, comment.id), method: :get, class: "link-dark" %></button>
+              <button type="button" class="btn btn-outline-danger ms-2"><%= link_to "コメント削除", question_comment_path(@question.id, comment.id), method: :delete, class:"link-dark" %></button>
+            <% end %>
+            <% if @question.best_answer_question_id == nil %>
+              <% if @question.user.id == current_user.id %>
+                <button type="button" class="btn btn-outline-info ms-2"><%= link_to "ベストアンサー", best_answer_question_comment_path(@question.id, comment.id), method: :post, class: "link-dark" %></button>
+              <% end %>
             <% end %>
           <% end %>
-        <% end %>
+          </div>
         </div>
-      </div>
-      <div class="border rounded col-5 ms-2">
-        <%= Rinku.auto_link(simple_format(comment.text), :all, 'target="_blank"').html_safe %>
-      </div>
-      <div class="mt-2 border-bottom">
+        <div class="border rounded col-5 ms-2">
+          <%= Rinku.auto_link(simple_format(comment.text), :all, 'target="_blank"').html_safe %>
+        </div>
+        <div class="mt-2 border-bottom">
+        </div>
       </div>
     <% end %>
 </div>
