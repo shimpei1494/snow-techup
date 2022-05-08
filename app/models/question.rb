@@ -4,7 +4,7 @@ class Question < ApplicationRecord
   has_many :comments, dependent: :destroy
 
   validates :text, presence: true
-  validates :video, blob: { content_type: :video, size_range: 1..(15.megabytes) }
+  validates :video, blob: { content_type: :video, size_range: 1..(25.megabytes) }
 
   def self.search(search)
     if search != ""
