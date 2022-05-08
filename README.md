@@ -1,37 +1,38 @@
-# README
+# アプリケーション名
+snow-techup
 
-## users TABLE
+# アプリケーション概要
+スノーボード初中級者が質問、回答を繰り返し、技術のレベルアップができるアプリケーション。
 
-|Column|Type|Options|
-|-|-|-|
-|nickname|string|null: false|
-|email|string|null: false, unique: true|
-|encrypted_password|string|null: false|
-|prefecture_id|integer|null: false|
+# URL
+https://snow-techup.herokuapp.com/
 
-### Association
-  - has_many :questions
-  - has_many :comments
+# テスト用アカウント
+- メールアドレス：test1234@com
+- パスワード：test1234
 
-## questions TABLE
+# 利用方法
+- トップページから質問の一覧が表示される
+- ログイン者は質問の投稿、コメントの投稿ができる
+- 検索機能により質問を検索できる
 
-|Column|Type|Options|
-|-|-|-|
-|text|text|null: false|
-|user_id|references|null: false, foreign_key: true|
+# アプリケーションを作成した背景
+既存のスノボアプリケーションは滑走記録や楽しんだことを共有するものが多く、個々のレベルアップを目的としたアプリは少ない。上級者は知識量もあり、自分に必要な情報をネットや知人から集めることもできるが、初中級者に関してはレベルアップするために何をしたらいいかわからないという人も多い。スノボ初中級者が漠然とした悩みを解決しつつ、自身の動画へのアドバイスを受けることで、効率よくレベルアップを目指すためにこのアプリケーションを作成した。
 
-### Association
-  - belongs_to :user
-  - has_many :comments
+# 洗い出した要件
+https://docs.google.com/spreadsheets/d/1R4SPDZct1DTCalEubJYlWl5MK0lQEvcgZd0X6fIt-Hs/edit?usp=sharing
 
-## comments TABLE
-|Column|Type|Options|
-|-|-|-|
-|text|text|null :false|
-|user_id|references|null: false, foreign_key: true|
-|question_id|references|null: false, foreign_key: true|
+# 実装した機能についての画像やGIF
+### 質問一覧表示ページ（＋検索機能）
+[![Image from Gyazo](https://i.gyazo.com/c36493cdcff21070aa9c3066750b9587.png)](https://gyazo.com/c36493cdcff21070aa9c3066750b9587)
+### 質問投稿ページ
+[![Image from Gyazo](https://i.gyazo.com/7bad6f6fc3c0c8e023b5f14444fe4640.png)](https://gyazo.com/7bad6f6fc3c0c8e023b5f14444fe4640)
+### 質問詳細ページ（＋コメント機能、＋ベストアンサー機能）
+[![Image from Gyazo](https://i.gyazo.com/f4fc30cb1fb9a5711f5cc3f0d4da3cfe.gif)](https://gyazo.com/f4fc30cb1fb9a5711f5cc3f0d4da3cfe)
 
-### Association
-  - belongs_to :user
-  - belongs_to :question
+# データベース設計
+[![Image from Gyazo](https://i.gyazo.com/577797d3a01753251e9432b359b03366.png)](https://gyazo.com/577797d3a01753251e9432b359b03366)
+
+# 工夫したポイント
+アイデアをアプリケーションにする上で適宜gemなども調べ、目的とするアプリケーションを１から作成した。質問に動画の添付をする際、バリデーションをかけ、制限以上の容量をもつファイルや動画以外のファイルを保存できないようにしている。また、テキストにyoutubeなどのリンクを貼った際、クリックでページに飛べるようにしたり、ベストアンサーを選択できるようにするなど、ユーザーの使いやすさに配慮し、アプリケーションを作成した。
 
