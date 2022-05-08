@@ -1,5 +1,5 @@
 class CommentsController < ApplicationController
-  before_action :comment_id, only: [:edit, :update, :destroy]
+  before_action :comment_id, only: [:edit, :update, :destroy, :best_answer]
 
   def create
     comment = Comment.create(comment_params)
@@ -28,6 +28,13 @@ class CommentsController < ApplicationController
     else
       redirect_to question_path(params[:question_id])
     end
+  end
+
+  def best_answer
+    @question = Question.find(@comment.question.id)
+    @comment.update_attribute(:best_answer_id, 1)
+    @question.update_attribute(:best_answer_question_id, 1)
+    redirect_to question_path(@question.id)
   end
 
   private

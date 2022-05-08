@@ -9,16 +9,23 @@
 <div class="">
   <% @questions.each do |question| %>
     <div class="border-bottom ps-3 pt-1 pb-2">
-      <%# <div class="mx-auto" style="width: 600px"> %>
-        <p class="">
+      <div class="d-flex">
+        <div class="">
           <b>質問者</b>：<%= question.user.nickname %>
-          / <b>投稿日時</b>：<%= l question.created_at %>
-        </p>
-        <div class="border rounded mb-2 col-5">
-          <p class="text-break"><%= simple_format(question.text) %></p>
         </div>
-        <button type="button" class="btn btn-outline-info "><%=link_to '詳細', question_path(question.id) %></button>
-      <%# </div> %>
+        <div class="ms-2">
+          <b>投稿日時</b>：<%= l question.created_at %>
+        </div>
+        <% if question.best_answer_question_id != nil %>
+          <div class="ms-2 border border-danger border-3 rounded">
+            <b class="text-danger">解決済み</b>
+          </div>
+        <% end %>
+      </div>
+      <div class="border rounded mt-2 mb-2 col-5">
+        <p class="text-break"><%= simple_format(question.text) %></p>
+      </div>
+      <button type="button" class="btn btn-outline-info "><%=link_to '詳細', question_path(question.id) %></button>
     </div>
   <% end %>
 </div>
