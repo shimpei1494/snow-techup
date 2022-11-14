@@ -50,5 +50,6 @@ test:
 production:
   <<: *default
   database: snow_techup_production
-  username: snow_techup
-  password: <%= ENV['SNOW_TECHUP_DATABASE_PASSWORD'] %>
+  username: root
+  password: <%= ENV['DATABASE_PASSWORD'] %>
+  socket /var/mysql.sock
